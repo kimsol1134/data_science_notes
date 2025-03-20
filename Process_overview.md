@@ -49,10 +49,10 @@
 
 ```mermaid
 graph LR;
-    A[🟣 생성 (New)] --> B[🟣 준비 (Ready)];
-    B --> C[🟣 실행 (Running)];
-    C --> D[🟣 종료 (Terminated)];
-    C --> E[🟣 대기 (Blocked)];
+    A[생성 (New)] --> B[준비 (Ready)];
+    B --> C[실행 (Running)];
+    C --> D[종료 (Terminated)];
+    C --> E[대기 (Blocked)];
     E --> B;
     C --> B;
 ```
