@@ -49,12 +49,16 @@
 
 ```mermaid
 graph LR;
-    A[생성 (New)] --> B[준비 (Ready)];
-    B --> C[실행 (Running)];
-    C --> D[종료 (Terminated)];
-    C --> E[대기 (Blocked)];
+    A["New (생성)"] --> B["Ready (준비)"];
+    B --> C["Running (실행)"];
+    C --> D["Terminated (종료)"];
+    C --> E["Blocked (대기)"];
     E --> B;
     C --> B;
+
+    %% 상태별 색상 정의
+    classDef state fill:#6a0dad,stroke:#ffffff,stroke-width:2px,color:#ffffff;
+    class A,B,C,D,E state;
 ```
 
 ### 3.2 상태 설명 (식당 비유)
