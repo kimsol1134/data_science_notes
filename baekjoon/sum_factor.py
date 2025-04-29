@@ -18,3 +18,35 @@ while True:
             print()
         else :
             print(N,"is","NOT","perfect.")
+
+
+## gpt 코드
+
+import sys
+input = sys.stdin.readline
+
+def proper_divisors(n):
+    """n의 자신을 제외한 모든 약수를 오름차순 리스트로 반환"""
+    divs = [1]
+    # 2부터 √n까지 확인
+    limit = int(n**0.5)
+    for i in range(2, limit+1):
+        if n % i == 0:
+            divs.append(i)
+            j = n // i
+            if j != i:          # 제곱수인 경우 중복 방지
+                divs.append(j)
+    return sorted(divs)
+
+while True:
+    n = int(input())
+    if n == -1:
+        break
+
+    divs = proper_divisors(n)
+    if sum(divs) == n:
+        # perfect
+        # "6 = 1 + 2 + 3" 형태로 포맷팅
+        print(f"{n} = " + " + ".join(map(str, divs)))
+    else:
+        print(f"{n} is NOT perfect.")
