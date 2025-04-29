@@ -42,11 +42,42 @@ word1 and word2 consist of lowercase English letters.
 class Solution:
     def mergeAlternately(self, word1: str, word2: str) -> str:
         answer = []
-        for idx,w1 in enumerate(word1):
+        for idx,w1 in enumerate(word1): # 짝수 인덱스에 w1 알파벳 하나씩 넣기
             answer.insert(2*idx,w1)
-        for idx,w2 in enumerate(word2):
+        for idx,w2 in enumerate(word2): # 홀수 인덱스에 w2 알파벳 하나씩 넣기
             answer.insert(2*idx+1,w2)
-        return ''.join(answer)
+        return ''.join(answer) # 합치기
 
-sol = Solution()
-print(sol.mergeAlternately("abcd","pq"))
+# two pointer로 개선
+
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        # 결과를 저장할 리스트 (append 사용)
+        merged_string = []
+        
+        # 각 문자열의 현재 위치를 가리키는 포인터 (인덱스)
+        p1 = 0
+        p2 = 0
+        
+        # 두 문자열의 길이
+        n1, n2 = len(word1), len(word2)
+        
+        # 두 문자열 모두 문자가 남아있는 동안 번갈아 가며 추가 (핵심 부분)
+        while p1 < n1 and p2 < n2:
+            merged_string.append(word1[p1])
+            merged_string.append(word2[p2])
+            p1 += 1 # word1 포인터 이동
+            p2 += 1 # word2 포인터 이동
+        
+        # word1에 남은 문자가 있다면 모두 추가
+        while p1 < n1:
+            merged_string.append(word1[p1])
+            p1 += 1
+        
+        # word2에 남은 문자가 있다면 모두 추가
+        while p2 < n2:
+            merged_string.append(word2[p2])
+            p2 += 1
+            
+        # 리스트에 저장된 문자들을 하나의 문자열로 합쳐 반환
+        return "".join(merged_string)
