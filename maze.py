@@ -29,3 +29,27 @@ def escape_maze():
 
 escape_maze()
 
+
+def escape_maze():
+    n, m = map(int, input().split()) # n,m 미로의 행과열
+    maze = [list(map(int,input().split())) for _ in range(n)]
+    dist = [[-1] * m for _ in range(n)] # 각 칸의 '최단 시간' 기록(-1 = 미방문)
+    dist[0][0] = 0 #시작위치 0초로 초기화
+
+    dq = deque([(0,0)]) # bfs큐 초기화- 튜플 (x,y) 삽입
+
+    while dq: # 큐가 빌때까지 탐색
+        x,y = dq.popleft() # 제일 먼저 들어온 좌표를 꺼냄
+
+        if (x,y) == (n-1,m-1): # 도착점에 도착했다면
+            print(dist[x][y])
+            return
+        
+        for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)): # 상하좌우 4방향이동
+            nx, ny = x + dx, y + dy
+            # nx,ny가 미로내에 있고
+            if 0<= nx < n and 0<= ny < m and maze[nx][ny] ==1 and dist[nx][ny] == -1 : # 이동가능한길 + 방문하지 않은곳이면
+                dist[nx][ny] = dist[x][y] + 1 #방문하고 최단시간 업데이트
+                dq.append((nx,ny))
+    
+    print(-1)
